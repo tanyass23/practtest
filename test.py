@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30 практичних завдань: Показникові рівняння</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .author {
+            text-align: right;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            padding: 10px;
+            background: #f0f4ff;
+            border-radius: 10px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .block {
+            margin-bottom: 40px;
+        }
+        
+        .block-title {
+            font-size: 1.8em;
+            color: #764ba2;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .question {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .question:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+        
+        .question-number {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #667eea;
+            min-width: 40px;
+        }
+        
+        .question-content {
+            flex: 1;
+        }
+        
+        .question-text {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .input-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .answer-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1.1em;
+            transition: all 0.3s;
+        }
+        
+        .answer-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .answer-input.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        
+        .answer-input.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+        
+        .check-icon {
+            font-size: 1.5em;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 40px auto;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .result {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1.5em;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .result.show {
+            display: block;
+            animation: slideIn 0.5s;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .score-emoji {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .hint {
+            color: #666;
+            font-size: 0.9em;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .question {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="author">
+            Усевич Тетяна, 21Мд-СОмат
+        </div>
+        
+        <h1>📊 30 практичних завдань</h1>
+        <p class="subtitle">Показникові рівняння: від базових до складних</p>
+        
+        <form id="taskForm">
+            <!-- Блок 1 -->
+            <div class="block">
+                <div class="block-title">🔹 Блок 1. Базові рівняння (1–10)</div>
+                
+                <div class="question">
+                    <div class="question-number">1.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(2^x = 8\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q1" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">2.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(3^x = 81\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q2" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">3.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(5^{x-1} = 25\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q3" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">4.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(7^x = 49\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q4" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">5.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(10^x = 100\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q5" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">6.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(2^{x+1} = 16\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q6" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">7.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(4^x = 2^4\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q7" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">8.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(9^x = 3^4\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q8" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">9.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(6^{x+1} = 36\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q9" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">10.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(3^{2x} = 27\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q10" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Блок 2 -->
+            <div class="block">
+                <div class="block-title">🔹 Блок 2. Перетворення основ (11–20)</div>
+                
+                <div class="question">
+                    <div class="question-number">11.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(4^x = 8\)</div>
+                        <div class="hint">Підказка: \(4 = 2^2\), \(8 = 2^3\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q11" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">12.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(27^{x-1} = 9\)</div>
+                        <div class="hint">Підказка: \(27 = 3^3\), \(9 = 3^2\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q12" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">13.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(0.5^x = 8\)</div>
+                        <div class="hint">Підказка: \(0.5 = \frac{1}{2} = 2^{-1}\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q13" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">14.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(2^{x+3} = 64\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q14" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">15.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(5^{x+1} = 125\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q15" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">16.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(16^x = 2^{x+4}\)</div>
+                        <div class="hint">Підказка: \(16 = 2^4\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q16" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">17.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(3^{x+2} = 81 \cdot 3^x\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q17" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">18.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(0.25^x = 4^{-2}\)</div>
+                        <div class="hint">Підказка: \(0.25 = \frac{1}{4} = 4^{-1}\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q18" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">19.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(3^{x+1} = 9^{x-2}\)</div>
+                        <div class="hint">Підказка: \(9 = 3^2\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q19" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">20.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(2^{x+2} = \frac{1}{8}\)</div>
+                        <div class="hint">Підказка: \(\frac{1}{8} = 2^{-3}\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q20" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Блок 3 -->
+            <div class="block">
+                <div class="block-title">🔹 Блок 3. Рівняння з обома сторонами змінними (21–25)</div>
+                
+                <div class="question">
+                    <div class="question-number">21.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(2^{x+1} = 2^{2x-3}\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q21" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">22.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(5^{2x+1} = 5^{x+4}\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q22" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">23.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(7^{x-2} = 7^{3x+1}\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q23" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">24.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(10^{2x} = 10^{x+3}\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q24" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">25.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(4^{x+2} = 2^{2x+5}\)</div>
+                        <div class="hint">Підказка: \(4 = 2^2\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q25" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Блок 4 -->
+            <div class="block">
+                <div class="block-title">🔹 Блок 4. Складніші рівняння (26–30)</div>
+                
+                <div class="question">
+                    <div class="question-number">26.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(2^x + 2^{x+1} = 48\)</div>
+                        <div class="hint">Підказка: Винеси \(2^x\) за дужки</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q26" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">27.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(3^x + 3^{x+1} = 36\)</div>
+                        <div class="hint">Підказка: Винеси \(3^x\) за дужки</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q27" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">28.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(5^x - 5^{x-1} = 100\)</div>
+                        <div class="hint">Підказка: \(5^x - \frac{5^x}{5} = 100\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q28" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">29.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(2^{2x} + 2^{2x} = 32\)</div>
+                        <div class="hint">Підказка: \(2 \cdot 2^{2x} = 32\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q29" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">30.</div>
+                    <div class="question-content">
+                        <div class="question-text">\(2^x + 4^x = 20\)</div>
+                        <div class="hint">Підказка: \(4^x = (2^2)^x = (2^x)^2\). Заміна: \(t = 2^x\)</div>
+                        <div class="input-container">
+                            <input type="text" class="answer-input" name="q30" placeholder="x = ?">
+                            <span class="check-icon"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="button" class="btn" onclick="checkAnswers()">Перевірити відповіді 🎯</button>
+        </form>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const answers = {
+            q1: '3',
+            q2: '4',
+            q3: '3',
+            q4: '2',
+            q5: '2',
+            q6: '3',
+            q7: '2',
+            q8: '2',
+            q9: '1',
+            q10: ['1.5', '3/2', '1,5'],
+            q11: ['1.5', '3/2', '1,5'],
+            q12: ['5/3', '1.666', '1.67', '1,67', '1,666'],
+            q13: '-3',
+            q14: '3',
+            q15: '2',
+            q16: ['4/3', '1.333', '1.33', '1,33', '1,333'],
+            q17: 'будь-яке',
+            q18: '2',
+            q19: '5',
+            q20: '-5',
+            q21: '4',
+            q22: '3',
+            q23: ['-1.5', '-3/2', '-1,5'],
+            q24: '3',
+            q25: '1',
+            q26: '4',
+            q27: '2',
+            q28: '3',
+            q29: '2',
+            q30: '2'
+        };
+
+        function checkAnswers() {
+            let score = 0;
+            const form = document.getElementById('taskForm');
+            
+            for (let i = 1; i <= 30; i++) {
+                const userAnswer = form.elements['q' + i].value.trim();
+                const input = form.elements['q' + i];
+                const checkIcon = input.parentElement.querySelector('.check-icon');
+                
+                input.classList.remove('correct', 'incorrect');
+                checkIcon.textContent = '';
+                
+                if (!userAnswer) continue;
+                
+                let isCorrect = false;
+                
+                if (Array.isArray(answers['q' + i])) {
+                    isCorrect = answers['q' + i].includes(userAnswer);
+                } else if (answers['q' + i] === 'будь-яке') {
+                    isCorrect = true;
+                } else {
+                    isCorrect = userAnswer === answers['q' + i];
+                }
+                
+                if (isCorrect) {
+                    score++;
+                    input.classList.add('correct');
+                    checkIcon.textContent = '✓';
+                    checkIcon.style.color = '#28a745';
+                } else {
+                    input.classList.add('incorrect');
+                    checkIcon.textContent = '✗';
+                    checkIcon.style.color = '#dc3545';
+                }
+            }
+
+            const resultDiv = document.getElementById('result');
+            let emoji = '';
+            let message = '';
+            let details = '';
+            
+            if (score >= 27) {
+                emoji = '🏆';
+                message = 'Феноменально! Ти абсолютний майстер показникових рівнянь!';
+                details = 'Твій рівень: ЕКСПЕРТ';
+            } else if (score >= 23) {
+                emoji = '🌟';
+                message = 'Відмінно! Ти чудово розумієш показникові рівняння!';
+                details = 'Твій рівень: ДОСВІДЧЕНИЙ';
+            } else if (score >= 18) {
+                emoji = '👍';
+                message = 'Добре! Продовжуй практикуватися!';
+                details = 'Твій рівень: СЕРЕДНІЙ';
+            } else if (score >= 12) {
+                emoji = '💪';
+                message = 'Непогано! Ще трохи зусиль і буде краще!';
+                details = 'Твій рівень: ПОЧАТКІВЕЦЬ';
+            } else {
+                emoji = '📚';
+                message = 'Не здавайся! Повтори теорію і спробуй ще раз!';
+                details = 'Твій рівень: НОВАЧОК';
+            }
+            
+            resultDiv.innerHTML = `
+                <div class="score-emoji">${emoji}</div>
+                <div>Твій результат: ${score} з 30</div>
+                <div style="font-size: 0.8em; margin-top: 10px;">${message}</div>
+                <div style="font-size: 0.7em; margin-top: 5px; opacity: 0.9;">${details}</div>
+            `;
+            resultDiv.classList.add('show');
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>
